@@ -18,7 +18,7 @@ import logging
 from DaisyXMusic.modules.msg import Messages as tr
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
-from DaisyXMusic.config import DONATE,ASSISTANT_NAME,PROJECT_NAME,SUPPORT_GROUP,UPDATES_CHANNEL,BOT_USERNAME
+from DaisyXMusic.config import DONATE_LINK,ASSISTANT_NAME,PROJECT_NAME,SUPPORT_GROUP,UPDATES_CHANNEL,BOT_USERNAME
 logging.basicConfig(level=logging.INFO)
 
 @Client.on_message(filters.private & filters.incoming & filters.command(['start']))
@@ -38,11 +38,11 @@ def _start(client, message):
                         "Group", url=f"https://t.me/{SUPPORT_GROUP}")
                 ],[
                     InlineKeyboardButton(
-                        "Donate", url=f"https://{DONATE}")
+                        "Donate", url=f"https://{DONATE_LINK}")
                 ]
             ]
         ),
-        
+        reply_to_message_id=message.message_id
         )
 
 @Client.on_message(filters.command("start") & ~filters.private & ~filters.channel)
