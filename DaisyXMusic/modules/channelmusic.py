@@ -358,7 +358,6 @@ async def m_cb(b, cb):
 
 
 @Client.on_message(filters.command(["channelplay","cplay"])  & filters.group & ~filters.edited)
-@errors
 async def play(_, message: Message):
     global que
     lel = await message.reply("`Processing Song`")
