@@ -18,12 +18,11 @@
 from pyrogram import Client, filters
 from pyrogram.errors import UserAlreadyParticipant
 import asyncio
-from DaisyXMusic.helpers.decorators import authorized_users_only, errors
+from DaisyXMusic.helpers.decorators import errors
 from DaisyXMusic.services.callsmusic.callsmusic import client as USER
 from DaisyXMusic.config import SUDO_USERS
 
 @Client.on_message(filters.command(["userbotjoin"]) & ~filters.private & ~filters.bot)
-@authorized_users_only
 @errors
 async def addchannel(client, message):
     chid = message.chat.id
@@ -38,7 +37,7 @@ async def addchannel(client, message):
     try:
         user = await USER.get_me()
     except:
-        user.first_name = "DaisyMusic"
+        user.first_name = "Rythm"
 
     try:
         await USER.join_chat(invitelink)
@@ -60,7 +59,7 @@ async def addchannel(client, message):
 
 
 @USER.on_message(filters.group & filters.command(["userbotleave"]))
-@authorized_users_only
+@errors
 async def rem(USER, message):
     try:
         await USER.leave_chat(message.chat.id)
@@ -90,7 +89,6 @@ async def bye(client, message):
     
     
 @Client.on_message(filters.command(["userbotjoinchannel","ubjoinc"]) & ~filters.private & ~filters.bot)
-@authorized_users_only
 @errors
 async def addcchannel(client, message):
     try:
@@ -112,7 +110,7 @@ async def addcchannel(client, message):
     try:
         user = await USER.get_me()
     except:
-        user.first_name = "DaisyMusic"
+        user.first_name = "Rythm"
 
     try:
         await USER.join_chat(invitelink)

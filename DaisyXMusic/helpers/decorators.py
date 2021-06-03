@@ -34,7 +34,7 @@ def errors(func: Callable) -> Callable:
     return decorator
 
 
-def authorized_users_only(func: Callable) -> Callable:
+def errors(func: Callable) -> Callable:
     async def decorator(client: Client, message: Message):
         if message.from_user.id in SUDO_USERS:
             return await func(client, message)
