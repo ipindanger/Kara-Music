@@ -150,7 +150,6 @@ async def ee(client, message):
 
 
 @Client.on_message(filters.command(["channelplayer","cplayer"]) & filters.group & ~filters.edited)
-@errors
 async def settings(client, message):
     playing = None
     try:
