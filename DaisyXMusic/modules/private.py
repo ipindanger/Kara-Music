@@ -30,7 +30,7 @@ def _start(client, message):
             [
                 [
                     InlineKeyboardButton(
-                        "Add me to your Group ", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")],
+                        "Add me to your Group", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")],
                 [
                     InlineKeyboardButton(
                         "Channel", url=f"https://t.me/{UPDATES_CHANNEL}"), 
@@ -48,12 +48,12 @@ def _start(client, message):
 @Client.on_message(filters.command("start") & ~filters.private & ~filters.channel)
 async def gstart(_, message: Message):
     await message.reply_text(
-        f"""**{PROJECT_NAME} is online**""",
+        f"""{PROJECT_NAME} is online""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "GROUP", url=f"https://t.me/{SUPPORT_GROUP}"
+                        "Group", url=f"https://t.me/{SUPPORT_GROUP}"
                     )
                 ]
             ]
@@ -93,7 +93,7 @@ def map(pos):
     elif(pos==len(tr.HELP_MSG)-1):
         url = f"https://t.me/{SUPPORT_GROUP}"
         button = [
-            [InlineKeyboardButton(" Add me to your Group ", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")],
+            [InlineKeyboardButton("Add me to your Group", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")],
             [InlineKeyboardButton(text = 'Channel', url=f"https://t.me/{UPDATES_CHANNEL}"),
              InlineKeyboardButton(text = 'Group', url=f"https://t.me/{SUPPORT_GROUP}")],
             [InlineKeyboardButton(text = 'Donate', url=f"https://{DONATE}")],
@@ -111,7 +111,7 @@ def map(pos):
 @Client.on_message(filters.command("help") & ~filters.private & ~filters.channel)
 async def ghelp(_, message: Message):
     await message.reply_text(
-        f"""Hello there! I can play music in the voice chats of telegram groups & channels.""",
+        f"""**Hello there! I can play music in the voice chats of telegram groups & channels.**""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
@@ -122,4 +122,3 @@ async def ghelp(_, message: Message):
             ]
         ),
     )
-
