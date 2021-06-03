@@ -538,8 +538,8 @@ async def play(_, message: Message):
                     InlineKeyboardButton("Menu ", callback_data="menu"),
                 ],
                 [
-                    InlineKeyboardButton(text="YouTube", url=f"{url}"),
-                    InlineKeyboardButton(text="Download ", url=f"{dlurl}"),
+                    InlineKeyboardButton(text="Group", url="https://t.me/caritemanvirtual01"),
+            
                 ],
                 [InlineKeyboardButton(text="Close", callback_data="cls")],
             ]
@@ -582,8 +582,8 @@ async def play(_, message: Message):
                     InlineKeyboardButton("Menu  ", callback_data="menu"),
                 ],
                 [
-                    InlineKeyboardButton(text="YouTube", url=f"{url}"),
-                    InlineKeyboardButton(text="Download ", url=f"{dlurl}"),
+                    InlineKeyboardButton(text="Group", url="https://t.me/caritemanvirtual01"),
+                    
                 ],
                 [InlineKeyboardButton(text="Close", callback_data="cls")],
             ]
