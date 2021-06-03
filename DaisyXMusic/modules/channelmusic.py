@@ -48,7 +48,7 @@ from DaisyXMusic.helpers.errors import DurationLimitError
 from DaisyXMusic.helpers.decorators import errors
 from DaisyXMusic.helpers.admins import get_administrators
 from DaisyXMusic.helpers.channelmusic import get_chat_id
-from DaisyXMusic.helpers.decorators import authorized_users_only
+from DaisyXMusic.helpers.decorators import errors
 from DaisyXMusic.helpers.filters import command, other_filters
 from DaisyXMusic.helpers.gets import get_file_name
 from DaisyXMusic.services.callsmusic import callsmusic, queues
@@ -150,7 +150,7 @@ async def ee(client, message):
 
 
 @Client.on_message(filters.command(["channelplayer","cplayer"]) & filters.group & ~filters.edited)
-@authorized_users_only
+@errors
 async def settings(client, message):
     playing = None
     try:
@@ -359,7 +359,7 @@ async def m_cb(b, cb):
 
 
 @Client.on_message(filters.command(["channelplay","cplay"])  & filters.group & ~filters.edited)
-@authorized_users_only
+@errors
 async def play(_, message: Message):
     global que
     lel = await message.reply("`Processing Song`")
