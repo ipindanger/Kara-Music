@@ -358,6 +358,7 @@ async def m_cb(b, cb):
 
 
 @Client.on_message(filters.command(["channelplay","cplay"])  & filters.group & ~filters.edited)
+@errors
 async def play(_, message: Message):
     global que
     lel = await message.reply("`Processing Song`")
@@ -602,7 +603,6 @@ async def play(_, message: Message):
 
 
 @Client.on_message(filters.command(["channeldzer","cdzer"]) & filters.group & ~filters.edited)
-@erorrs
 async def deezer(client: Client, message_: Message):
     global que
     lel = await message_.reply("`Processing Song`")
