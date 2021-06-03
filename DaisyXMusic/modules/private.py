@@ -18,7 +18,7 @@ import logging
 from DaisyXMusic.modules.msg import Messages as tr
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
-from DaisyXMusic.config import DONATE_LINK,ASSISTANT_NAME,PROJECT_NAME,SUPPORT_GROUP,UPDATES_CHANNEL,BOT_USERNAME
+from DaisyXMusic.config import ASSISTANT_NAME,PROJECT_NAME,SUPPORT_GROUP,UPDATES_CHANNEL,BOT_USERNAME
 logging.basicConfig(level=logging.INFO)
 
 @Client.on_message(filters.private & filters.incoming & filters.command(['start']))
@@ -36,9 +36,7 @@ def _start(client, message):
                         "Channel", url=f"https://t.me/{UPDATES_CHANNEL}"), 
                     InlineKeyboardButton(
                         "Group", url=f"https://t.me/{SUPPORT_GROUP}")
-                ],[
-                    InlineKeyboardButton(
-                        "Donate", url=f"https://{DONATE_LINK}")
+
                 ]
             ]
         ),
@@ -95,8 +93,7 @@ def map(pos):
         button = [
             [InlineKeyboardButton("Add me to your Group", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")],
             [InlineKeyboardButton(text = 'Channel', url=f"https://t.me/{UPDATES_CHANNEL}"),
-             InlineKeyboardButton(text = 'Group', url=f"https://t.me/{SUPPORT_GROUP}")],
-            [InlineKeyboardButton(text = 'Donate', url=f"https://{DONATE}")],
+            [InlineKeyboardButton(text = 'Group', url=f"https://t.me/{SUPPORT_GROUP}")],
             [InlineKeyboardButton(text = '◀️', callback_data = f"help+{pos-1}")]
         ]
     else:
