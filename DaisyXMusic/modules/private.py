@@ -30,7 +30,7 @@ def _start(client, message):
             [
                 [
                     InlineKeyboardButton(
-                        "➕ Add me to your Group ", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")],
+                        "Add me to your Group ", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")],
                 [
                     InlineKeyboardButton(
                         "Channel", url=f"https://t.me/{UPDATES_CHANNEL}"), 
