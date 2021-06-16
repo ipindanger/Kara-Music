@@ -1,4 +1,4 @@
-# Daisyxmusic (Telegram bot project )
+# rythm (Telegram bot project )
 # Copyright (C) 2021  Inukaasith
 
 # This program is free software: you can redistribute it and/or modify
@@ -16,10 +16,10 @@
 
 from pyrogram import Client
 import asyncio
-from DaisyXMusic.config import SUDO_USERS, PMPERMIT
+from rythm.config import SUDO_USERS, PMPERMIT
 from pyrogram import filters
 from pyrogram.types import Message
-from DaisyXMusic.services.callsmusic.callsmusic import client as USER
+from rythm.services.callsmusic.callsmusic import client as USER
 
 PMSET =True
 pchats = []

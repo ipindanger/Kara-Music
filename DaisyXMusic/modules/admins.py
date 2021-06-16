@@ -16,15 +16,15 @@
 
 
 from asyncio.queues import QueueEmpty
-from DaisyXMusic.config import que
+from rythm.config import que
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from DaisyXMusic.function.admins import set
-from DaisyXMusic.helpers.channelmusic import get_chat_id
-from DaisyXMusic.helpers.decorators import errors
-from DaisyXMusic.helpers.filters import command, other_filters
-from DaisyXMusic.services.callsmusic import callsmusic
+from rythm.function.admins import set
+from rythm.helpers.channelmusic import get_chat_id
+from rythm.helpers.decorators import errors
+from rythm.helpers.filters import command, other_filters
+from rythm.services.callsmusic import callsmusic
 
 
 @Client.on_message(filters.command("adminreset"))

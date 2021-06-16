@@ -1,4 +1,4 @@
-# Daisyxmusic (Telegram bot project)
+# rythm (Telegram bot project)
 # Copyright (C) 2021  Inukaasith
 # Copyright (C) 2021  TheHamkerCat (Python_ARQ)
 # This program is free software: you can redistribute it and/or modify
@@ -32,29 +32,29 @@ from pyrogram.types import Voice
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from Python_ARQ import ARQ
 from youtube_search import YoutubeSearch
-from DaisyXMusic.modules.play import generate_cover
-from DaisyXMusic.modules.play import arq
-from DaisyXMusic.modules.play import cb_admin_check
-from DaisyXMusic.modules.play import transcode
-from DaisyXMusic.modules.play import convert_seconds
-from DaisyXMusic.modules.play import time_to_seconds
-from DaisyXMusic.modules.play import changeImageSize
-from DaisyXMusic.config import BOT_NAME as bn
-from DaisyXMusic.config import DURATION_LIMIT
-from DaisyXMusic.config import UPDATES_CHANNEL as updateschannel
-from DaisyXMusic.config import que
-from DaisyXMusic.function.admins import admins as a
-from DaisyXMusic.helpers.errors import DurationLimitError
-from DaisyXMusic.helpers.decorators import errors
-from DaisyXMusic.helpers.admins import get_administrators
-from DaisyXMusic.helpers.channelmusic import get_chat_id
-from DaisyXMusic.helpers.decorators import errors
-from DaisyXMusic.helpers.filters import command, other_filters
-from DaisyXMusic.helpers.gets import get_file_name
-from DaisyXMusic.services.callsmusic import callsmusic, queues
-from DaisyXMusic.services.callsmusic.callsmusic import client as USER
-from DaisyXMusic.services.converter.converter import convert
-from DaisyXMusic.services.downloaders import youtube
+from rythm.modules.play import generate_cover
+from rythm.modules.play import arq
+from rythm.modules.play import cb_admin_check
+from rythm.modules.play import transcode
+from rythm.modules.play import convert_seconds
+from rythm.modules.play import time_to_seconds
+from rythm.modules.play import changeImageSize
+from rythm.config import BOT_NAME as bn
+from rythm.config import DURATION_LIMIT
+from rythm.config import UPDATES_CHANNEL as updateschannel
+from rythm.config import que
+from rythm.function.admins import admins as a
+from rythm.helpers.errors import DurationLimitError
+from rythm.helpers.decorators import errors
+from rythm.helpers.admins import get_administrators
+from rythm.helpers.channelmusic import get_chat_id
+from rythm.helpers.decorators import errors
+from rythm.helpers.filters import command, other_filters
+from rythm.helpers.gets import get_file_name
+from rythm.services.callsmusic import callsmusic, queues
+from rythm.services.callsmusic.callsmusic import client as USER
+from rythm.services.converter.converter import convert
+from rythm.services.downloaders import youtube
 
 chat_id = None
 
