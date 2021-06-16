@@ -55,6 +55,7 @@ aiohttpsession = aiohttp.ClientSession()
 chat_id = None
 arq = ARQ("https://thearq.tech", ARQ_API_KEY, aiohttpsession)
 
+DISABLED_GROUPS = []
 
 def cb_admin_check(func: Callable) -> Callable:
     async def decorator(client, cb):
@@ -396,7 +397,10 @@ async def m_cb(b, cb):
 @errors
 async def play(_, message: Message):
     global que
-    lel = await message.reply(" `Processing Song` ")
+    global useer
+    if message.chat.id in DISABLED_GROUPS:
+        return    
+    lel = await message.reply("`Processing`")
     administrators = await get_administrators(message.chat)
     chid = message.chat.id
 
@@ -439,7 +443,7 @@ async def play(_, message: Message):
                 except Exception:
                     # print(e)
                     await lel.edit(
-                        f"<b> Flood Wait Error  \nUser {user.first_name} couldn't join your group due to heavy requests for userbot! Make sure user is not banned in group."
+                        f"<b>Flood Wait Error \nUser {user.first_name} couldn't join your group due to heavy requests for userbot! Make sure user is not banned in group."
                         "\n\nOr manually add assistant to your Group and try again</b>",
                     )
     try:
@@ -450,11 +454,8 @@ async def play(_, message: Message):
             f"<i> {user.first_name} Userbot not in this chat, Ask admin to send /play command for first time or add {user.first_name} manually</i>"
         )
         return
-    message.from_user.id
-    message.from_user.first_name
     text_links=None
-    await lel.edit("🔎 `Finding Song` 🔍")
-    message.from_user.id
+    await lel.edit("🔎 `Finding` 🔍")
     if message.reply_to_message:
         entities = []
         toxt = message.reply_to_message.text or message.reply_to_message.caption
@@ -471,7 +472,6 @@ async def play(_, message: Message):
     if text_links:
         urls = True
     user_id = message.from_user.id
-    message.from_user.first_name
     user_name = message.from_user.first_name
     rpk = "[" + user_name + "](tg://user?id=" + str(user_id) + ")"
     audio = (
@@ -482,23 +482,68 @@ async def play(_, message: Message):
     if audio:
         if round(audio.duration / 60) > DURATION_LIMIT:
             raise DurationLimitError(
-                f" Videos longer than {DURATION_LIMIT} minute(s) aren't allowed to play!"
+                f"Videos longer than {DURATION_LIMIT} minute(s) aren't allowed to play!"
             )
         keyboard = InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton("Playlist", callback_data="playlist"),
-                    InlineKeyboardButton("Menu ", callback_data="menu"),
+                    InlineKeyboardButton("Menu", callback_data="menu"),
                 ],
                 [InlineKeyboardButton(text="Close", callback_data="cls")],
             ]
         )
         file_name = get_file_name(audio)
         title = file_name
-        thumb_name = "https://telegra.ph/file/3a434d502a8adac2c8ef9.png"
+        thumb_name = "https://telegra.ph/file/f6086f8909fbfeb0844f2.png"
         thumbnail = thumb_name
         duration = round(audio.duration / 60)
         views = "Locally added"
+        requested_by = message.from_user.first_name
+        await generate_cover(requested_by, title, views, duration, thumbnail)
+        file_path = await convert(
+            (await message.reply_to_message.download(file_name))
+            if not path.isfile(path.join("downloads", file_name))
+            else file_name
+        )
+    elif urls:
+        query = toxt
+        await lel.edit("`Processing Song`")
+        ydl_opts = {"format": "bestaudio[ext=m4a]"}
+        try:
+            results = YoutubeSearch(query, max_results=1).to_dict()
+            url = f"https://youtube.com{results[0]['url_suffix']}"
+            # print(results)
+            title = results[0]["title"][:40]
+            thumbnail = results[0]["thumbnails"][0]
+            thumb_name = f"thumb{title}.jpg"
+            thumb = requests.get(thumbnail, allow_redirects=True)
+            open(thumb_name, "wb").write(thumb.content)
+            duration = results[0]["duration"]
+            results[0]["url_suffix"]
+            views = results[0]["views"]
+
+        except Exception as e:
+            await lel.edit(
+                "Song not found.Try another song or maybe spell it properly."
+            )
+            print(str(e))
+            return
+        dlurl=url
+        dlurl=dlurl.replace("youtube","youtubepp")
+        keyboard = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton("Playlist", callback_data="playlist"),
+                    InlineKeyboardButton("Menu", callback_data="menu"),
+                ],
+                [
+                    InlineKeyboardButton(text="Group", url="https://t.me/caripacarvirtual01"),
+                    
+                ],
+                [InlineKeyboardButton(text="Close", callback_data="cls")],
+            ]
+        )
         requested_by = message.from_user.first_name
         await generate_cover(requested_by, title, views, duration, thumbnail)
         file_path = await convert(youtube.download(url))        
@@ -523,9 +568,12 @@ async def play(_, message: Message):
 
             while j < 5:
                 toxxt += f"{emojilist[j]} [Title - {results[j]['title']}](https://youtube.com{results[j]['url_suffix']})\n"
-                toxxt += f" ╚ **Duration** - {results[j]['duration']}\n"
-                toxxt += f" ╚ **Views** - {results[j]['views']}\n"
-                toxxt += f" ╚ **Channel** - {results[j]['channel']}\n\n"
+                toxxt += f" ├
+└ ⏱`Duration` - {results[j]['duration']}\n"
+                toxxt += f" ├
+└ 💡`Views` - {results[j]['views']}\n"
+                toxxt += f" ├
+└ 📣`Channel` - {results[j]['channel']}\n\n"
 
                 j += 1            
             koyboard = InlineKeyboardMarkup(
@@ -550,87 +598,41 @@ async def play(_, message: Message):
             await lel.edit("No Enough results to choose.. Starting direct play..")
                         
             # print(results)
-        try:
-            results = YoutubeSearch(query, max_results=1).to_dict()
-            url = f"https://youtube.com{results[0]['url_suffix']}"
-            # print(results)
-            title = results[0]["title"][:40]
-            thumbnail = results[0]["thumbnails"][0]
-            thumb_name = f"thumb{title}.jpg"
-            thumb = requests.get(thumbnail, allow_redirects=True)
-            open(thumb_name, "wb").write(thumb.content)
-            duration = results[0]["duration"]
-            results[0]["url_suffix"]
-            views = results[0]["views"]
+            try:
+                url = f"https://youtube.com{results[0]['url_suffix']}"
+                title = results[0]["title"][:40]
+                thumbnail = results[0]["thumbnails"][0]
+                thumb_name = f"thumb{title}.jpg"
+                thumb = requests.get(thumbnail, allow_redirects=True)
+                open(thumb_name, "wb").write(thumb.content)
+                duration = results[0]["duration"]
+                results[0]["url_suffix"]
+                views = results[0]["views"]
 
-        except Exception as e:
-            await lel.edit(
-                "Song not found.Try another song or maybe spell it properly."
+            except Exception as e:
+                await lel.edit(
+                    "Song not found.Try another song or maybe spell it properly."
+                )
+                print(str(e))
+                return
+            dlurl=url
+            dlurl=dlurl.replace("youtube","youtubepp")
+            keyboard = InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton("Playlist", callback_data="playlist"),
+                        InlineKeyboardButton("Menu", callback_data="menu"),
+                    ],
+                    [
+                        InlineKeyboardButton(text="Group", url="https://t.me/caripacarvirtual01"),
+                     
+                    ],
+                    [InlineKeyboardButton(text="Close", callback_data="cls")],
+                ]
             )
-            print(str(e))
-            return
-        dlurl=url
-        dlurl=dlurl.replace("youtube","youtubepp")
-        keyboard = InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton("Playlist", callback_data="playlist"),
-                    InlineKeyboardButton("Menu ", callback_data="menu"),
-                ],
-                [
-                    InlineKeyboardButton(text="Group", url="https://t.me/caripacarvirtual01"),
-            
-                ],
-                [InlineKeyboardButton(text="Close", callback_data="cls")],
-            ]
-        )
-        requested_by = message.from_user.first_name
-        await generate_cover(requested_by, title, views, duration, thumbnail)
-        file_path = await convert(youtube.download(url))        
-    else:
-        query = ""
-        for i in message.command[1:]:
-            query += " " + str(i)
-        print(query)
-        await lel.edit(" `Processing Song`")
-        ydl_opts = {"format": "bestaudio[ext=m4a]"}
-        try:
-            results = YoutubeSearch(query, max_results=1).to_dict()
-            url = f"https://youtube.com{results[0]['url_suffix']}"
-            # print(results)
-            title = results[0]["title"][:40]
-            thumbnail = results[0]["thumbnails"][0]
-            thumb_name = f"thumb{title}.jpg"
-            thumb = requests.get(thumbnail, allow_redirects=True)
-            open(thumb_name, "wb").write(thumb.content)
-            duration = results[0]["duration"]
-            results[0]["url_suffix"]
-            views = results[0]["views"]
-
-        except Exception as e:
-            await lel.edit(
-                "Song not found.Try another song or maybe spell it properly."
-            )
-            print(str(e))
-            return
-        dlurl=url
-        dlurl=dlurl.replace("youtube","youtubepp")
-        keyboard = InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton("Playlist", callback_data="playlist"),
-                    InlineKeyboardButton("Menu  ", callback_data="menu"),
-                ],
-                [
-                    InlineKeyboardButton(text="Group", url="https://t.me/caripacarvirtual01"),
-                    
-                ],
-                [InlineKeyboardButton(text="Close", callback_data="cls")],
-            ]
-        )
-        requested_by = message.from_user.first_name
-        await generate_cover(requested_by, title, views, duration, thumbnail)
-        file_path = await convert(youtube.download(url))
+            requested_by = message.from_user.first_name
+            await generate_cover(requested_by, title, views, duration, thumbnail)
+            file_path = await convert(youtube.download(url))   
     chat_id = get_chat_id(message.chat)
     if chat_id in callsmusic.pytgcalls.active_calls:
         position = await queues.put(chat_id, file=file_path)
