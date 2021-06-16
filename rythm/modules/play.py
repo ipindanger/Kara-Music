@@ -501,15 +501,55 @@ async def play(_, message: Message):
         views = "Locally added"
         requested_by = message.from_user.first_name
         await generate_cover(requested_by, title, views, duration, thumbnail)
-        file_path = await convert(
-            (await message.reply_to_message.download(file_name))
-            if not path.isfile(path.join("downloads", file_name))
-            else file_name
-        )
-    elif urls:
-        query = toxt
-        await lel.edit(" `Processing Song`")
+        file_path = await convert(youtube.download(url))        
+    else:
+        query = ""
+        for i in message.command[1:]:
+            query += " " + str(i)
+        print(query)
+        await lel.edit("🎵 **Processing**")
         ydl_opts = {"format": "bestaudio[ext=m4a]"}
+        
+        try:
+          results = YoutubeSearch(query, max_results=5).to_dict()
+        except:
+          await lel.edit("Give me something to play")
+        # Looks like hell. Aren't it?? FUCK OFF
+        try:
+            toxxt = "**Select the song you want to play**\n\n"
+            j = 0
+            useer=user_name
+            emojilist = ["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣",]
+
+            while j < 5:
+                toxxt += f"{emojilist[j]} [Title - {results[j]['title']}](https://youtube.com{results[j]['url_suffix']})\n"
+                toxxt += f" ╚ **Duration** - {results[j]['duration']}\n"
+                toxxt += f" ╚ **Views** - {results[j]['views']}\n"
+                toxxt += f" ╚ **Channel** - {results[j]['channel']}\n\n"
+
+                j += 1            
+            koyboard = InlineKeyboardMarkup(
+                [
+                    [
+                        InlineKeyboardButton("1️⃣", callback_data=f'plll 0|{query}|{user_id}'),
+                        InlineKeyboardButton("2️⃣", callback_data=f'plll 1|{query}|{user_id}'),
+                        InlineKeyboardButton("3️⃣", callback_data=f'plll 2|{query}|{user_id}'),
+                    ],
+                    [
+                        InlineKeyboardButton("4️⃣", callback_data=f'plll 3|{query}|{user_id}'),
+                        InlineKeyboardButton("5️⃣", callback_data=f'plll 4|{query}|{user_id}'),
+                    ],
+                    [InlineKeyboardButton(text="❌", callback_data="cls")],
+                ]
+            )       
+            await lel.edit(toxxt,reply_markup=koyboard,disable_web_page_preview=True)
+            # WHY PEOPLE ALWAYS LOVE PORN ?? (A point to think)
+            return
+            # Returning to pornhub
+        except:
+            await lel.edit("No Enough results to choose.. Starting direct play..")
+                        
+            # print(results)
         try:
             results = YoutubeSearch(query, max_results=1).to_dict()
             url = f"https://youtube.com{results[0]['url_suffix']}"
