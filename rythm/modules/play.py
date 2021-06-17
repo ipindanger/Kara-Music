@@ -206,9 +206,6 @@ async def ee(client, message):
 
 @Client.on_message(filters.command("player") & filters.group & ~filters.edited)
 async def settings(client, message):
-	if message.chat.id in DISABLED_GROUPS:
-        await message.reply("Music Player is Disabled")
-        return
     playing = None
     chat_id = get_chat_id(message.chat)
     if chat_id in callsmusic.pytgcalls.active_calls:
