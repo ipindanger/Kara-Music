@@ -917,9 +917,9 @@ async def lol_cb(b, cb):
         qeue = que.get(chat_id)
         s_name = title
         try:
-            r_by = cb.message.reply_to_message.from_user
+            r_by = message.reply_to_message.from_user
         except:
-            r_by = cb.message.from_user
+            r_by = message.from_user
         loc = file_path
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
@@ -937,9 +937,9 @@ async def lol_cb(b, cb):
         qeue = que.get(chat_id)
         s_name = title
         try:
-            r_by = cb.message.reply_to_message.from_user
+            r_by = message.reply_to_message.from_user
         except:
-            r_by = cb.message.from_user
+            r_by = message.from_user
         loc = file_path
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
