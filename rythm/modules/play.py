@@ -917,9 +917,9 @@ async def lol_cb(b, cb):
         qeue = que.get(chat_id)
         s_name = title
         try:
-            r_by = message.reply_to_message.from_user
+            r_by = cb.message.reply_to_message.from_user
         except:
-            r_by = message.from_user
+            r_by = cb.message.from_user
         loc = file_path
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
@@ -927,7 +927,7 @@ async def lol_cb(b, cb):
         await b.send_photo(chat_id,
             photo="final.png",
         caption=f"🏷 **Name:** [{title[:35]}]({url})\n⏱ **Duration:** {duration}\n" \
-               + f"💡 **Status:** `Add to the queue`\n🎧 **Requested:** {message.from_user.mention}"
+               + f"💡 **Status:** `Add to the queue`\n🎧 **Requested:** {r_by.mention}"
         ),
         
         os.remove("final.png")
@@ -937,9 +937,9 @@ async def lol_cb(b, cb):
         qeue = que.get(chat_id)
         s_name = title
         try:
-            r_by = message.reply_to_message.from_user
+            r_by = cb.message.reply_to_message.from_user
         except:
-            r_by = message.from_user
+            r_by = cb.message.from_user
         loc = file_path
         appendable = [s_name, r_by, loc]
         qeue.append(appendable)
@@ -949,7 +949,7 @@ async def lol_cb(b, cb):
         await b.send_photo(chat_id,
             photo="final.png",
         caption=f"🏷 **Name:** [{title[:35]}]({url})\n⏱ **Duration:** {duration}\n" \
-               + f"💡 **Status:** `Playing`\n🎧 **Requested:** {message.from_user.mention}"
+               + f"💡 **Status:** `Playing`\n🎧 **Requested:** {r_by.mention}"
         ),
         
         os.remove("final.png")
