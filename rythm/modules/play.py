@@ -231,7 +231,7 @@ async def settings(client, message):
 )
 @errors
 async def hfmm(_, message):
-    global rythm_chats
+    global DISABLED_GROUPS
     try:
         user_id = message.from_user.id
     except:
@@ -245,7 +245,7 @@ async def hfmm(_, message):
     message.chat.id
     if status == "ON" or status == "on" or status == "On":
         lel = await message.reply("`Processing...`")
-        if not message.chat.iid in DISABLED_GROUPS:
+        if not message.chat.id in DISABLED_GROUPS:
             await lel.edit("Music Player Already Activated In This Chat")
             return
         DISABLED_GROUPS.remove(message.chat.id)
@@ -256,7 +256,7 @@ async def hfmm(_, message):
     elif status == "OFF" or status == "off" or status == "Off":
         lel = await message.reply("`Processing...`")
 
-        if message.chat.iid in DISABLED_GROUPS:
+        if message.chat.id in DISABLED_GROUPS:
             await lel.edit("Music Player Already turned off In This Chat")
             return
         DISABLED_GROUPS.append(message.chat.id)
