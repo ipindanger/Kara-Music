@@ -865,7 +865,7 @@ async def lol_cb(b, cb):
     if cb.from_user.id != useer_id:
         await cb.answer("You ain't the person who requested to play the song!", show_alert=True)
         return
-    await cb.message.edit("Hang On... Player Starting")
+    await cb.message.edit("Hang On Player Starting")
     x=int(x)
     try:
         useer_name = cb.message.reply_to_message.from_user.first_name
@@ -899,14 +899,14 @@ async def lol_cb(b, cb):
     keyboard = InlineKeyboardMarkup(
         [
             [
-                InlineKeyboardButton("📖 Playlist", callback_data="playlist"),
-                InlineKeyboardButton("Menu ⏯ ", callback_data="menu"),
+                InlineKeyboardButton("Playlist", callback_data="playlist"),
+                InlineKeyboardButton("Menu", callback_data="menu"),
             ],
             [
-                InlineKeyboardButton(text="🎬 YouTube", url=f"{url}"),
-                InlineKeyboardButton(text="Download 📥", url=f"{dlurl}"),
+                InlineKeyboardButton(text="Group", url="https://t.me/caripacarvirtual01"),
+                
             ],
-            [InlineKeyboardButton(text="❌ Close", callback_data="cls")],
+            [InlineKeyboardButton(text="🗑️ Close", callback_data="cls")],
         ]
     )
     requested_by = useer_name
@@ -926,9 +926,10 @@ async def lol_cb(b, cb):
         await cb.message.delete()
         await b.send_photo(chat_id,
             photo="final.png",
-            caption=f"#⃣  Song requested by {r_by.mention} **queued** at position {position}!",
-            reply_markup=keyboard,
-        )
+        caption=f"🏷 **Name:** [{title[:35]}]({url})\n⏱ **Duration:** {duration}\n" \
+               + f"💡 **Status:** `Add to the queue`\n🎧 **Requested:** {message.from_user.mention}"
+        ),
+        
         os.remove("final.png")
         
     else:
@@ -947,9 +948,9 @@ async def lol_cb(b, cb):
         await cb.message.delete()
         await b.send_photo(chat_id,
             photo="final.png",
-            reply_markup=keyboard,
-            caption=f"▶️ **Playing** here the song requested by {r_by.mention} via Youtube Music 😜",
-        )
+        caption=f"🏷 **Name:** [{title[:35]}]({url})\n⏱ **Duration:** {duration}\n" \
+               + f"💡 **Status:** `Playing`\n🎧 **Requested:** {message.from_user.mention}"
+        ),
         
         os.remove("final.png")
 
