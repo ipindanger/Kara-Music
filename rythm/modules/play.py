@@ -196,8 +196,6 @@ def r_ply(type_):
 
 @Client.on_message(filters.command("current") & filters.group & ~filters.edited)
 async def ee(client, message):
-	if message.chat.id in DISABLED_GROUPS:
-        return
     queue = que.get(message.chat.id)
     stats = updated_stats(message.chat, queue)
     if stats:
