@@ -590,6 +590,7 @@ async def play(_, message: Message):
                 [InlineKeyboardButton(text="Close", callback_data="cls")],
             ]
         )
+        thumb_name = https://telegra.ph/file/09bcfa88180019caca22c.jpg
         requested_by = message.from_user.first_name
         await generate_cover(requested_by, title, views, duration, thumbnail)
         file_path = await convert(youtube.download(url))        
