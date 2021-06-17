@@ -129,6 +129,8 @@ async def generate_cover(requested_by, title, views, duration, thumbnail):
 @Client.on_message(filters.command("playlist") & filters.group & ~filters.edited)
 async def playlist(client, message):
     global que
+    if message.chat.id in DISABLED_GROUPS:
+        return    
     queue = que.get(message.chat.id)
     if not queue:
         await message.reply_text("Player is idle")
@@ -194,6 +196,8 @@ def r_ply(type_):
 
 @Client.on_message(filters.command("current") & filters.group & ~filters.edited)
 async def ee(client, message):
+	if message.chat.id in DISABLED_GROUPS:
+        return
     queue = que.get(message.chat.id)
     stats = updated_stats(message.chat, queue)
     if stats:
@@ -204,6 +208,9 @@ async def ee(client, message):
 
 @Client.on_message(filters.command("player") & filters.group & ~filters.edited)
 async def settings(client, message):
+	if message.chat.id in DISABLED_GROUPS:
+        await message.reply("Music Player is Disabled")
+        return
     playing = None
     chat_id = get_chat_id(message.chat)
     if chat_id in callsmusic.pytgcalls.active_calls:
@@ -218,6 +225,50 @@ async def settings(client, message):
             await message.reply(stats, reply_markup=r_ply("play"))
     else:
         await message.reply("No VC instances running in this chat")
+
+@Client.on_message(
+    filters.command("musicplayer") & ~filters.edited & ~filters.bot & ~filters.private
+)
+@errors
+async def hfmm(_, message):
+    global rythm_chats
+    try:
+        user_id = message.from_user.id
+    except:
+        return
+    if len(message.command) != 2:
+        await message.reply_text(
+            "I only recognize `/musicplayer on` and /musicplayer `off only`"
+        )
+        return
+    status = message.text.split(None, 1)[1]
+    message.chat.id
+    if status == "ON" or status == "on" or status == "On":
+        lel = await message.reply("`Processing...`")
+        if not message.chat.iid in DISABLED_GROUPS:
+            await lel.edit("Music Player Already Activated In This Chat")
+            return
+        DISABLED_GROUPS.remove(message.chat.id)
+        await lel.edit(
+            f"Music Player Successfully Enabled For Users In The Chat {message.chat.id}"
+        )
+
+    elif status == "OFF" or status == "off" or status == "Off":
+        lel = await message.reply("`Processing...`")
+
+        if message.chat.iid in DISABLED_GROUPS:
+            await lel.edit("Music Player Already turned off In This Chat")
+            return
+        DISABLED_GROUPS.append(message.chat.id)
+        await lel.edit(
+            f"Music Player Successfully Deactivated For Users In The Chat {message.chat.id}"
+        )
+    else:
+        await message.reply_text(
+            "I only recognize `/musicplayer on` and /musicplayer `off only`"
+        )    
+
+
 
 
 @Client.on_callback_query(filters.regex(pattern=r"^(playlist)$"))
@@ -495,7 +546,7 @@ async def play(_, message: Message):
         )
         file_name = get_file_name(audio)
         title = file_name
-        thumb_name = "https://telegra.ph/file/f6086f8909fbfeb0844f2.png"
+        thumb_name = "https://telegra.ph/file/3a434d502a8adac2c8ef9.png"
         thumbnail = thumb_name
         duration = round(audio.duration / 60)
         views = "Locally added"
@@ -674,6 +725,8 @@ async def play(_, message: Message):
 @Client.on_message(filters.command("dzer") & filters.group & ~filters.edited)
 async def deezer(client: Client, message_: Message):
     global que
+    if message_.chat.id in DISABLED_GROUPS:
+        return
     lel = await message_.reply("`Processing Song`")
     administrators = await get_administrators(message_.chat)
     chid = message_.chat.id
