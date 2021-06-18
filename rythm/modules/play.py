@@ -54,8 +54,8 @@ from rythm.services.downloaders import youtube
 aiohttpsession = aiohttp.ClientSession()
 chat_id = None
 arq = ARQ("https://thearq.tech", ARQ_API_KEY, aiohttpsession)
-
 DISABLED_GROUPS = []
+useer ="NaN"Aaaa
 
 def cb_admin_check(func: Callable) -> Callable:
     async def decorator(client, cb):
@@ -196,6 +196,8 @@ def r_ply(type_):
 
 @Client.on_message(filters.command("current") & filters.group & ~filters.edited)
 async def ee(client, message):
+    if message.chat.id in DISABLED_GROUPS:
+        return
     queue = que.get(message.chat.id)
     stats = updated_stats(message.chat, queue)
     if stats:
@@ -206,6 +208,9 @@ async def ee(client, message):
 
 @Client.on_message(filters.command("player") & filters.group & ~filters.edited)
 async def settings(client, message):
+    if message.chat.id in DISABLED_GROUPS:
+        await message.reply("Music Player is Disabled")
+        return
     playing = None
     chat_id = get_chat_id(message.chat)
     if chat_id in callsmusic.pytgcalls.active_calls:
