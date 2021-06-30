@@ -508,6 +508,8 @@ async def play(_, message: Message):
     text_links=None
     await lel.edit("🔎 `Finding` 🔍")
     if message.reply_to_message:
+    if message.reply_to_message.audio:
+            pass
         entities = []
         toxt = message.reply_to_message.text or message.reply_to_message.caption
         if message.reply_to_message.entities:
