@@ -612,11 +612,9 @@ async def play(_, message: Message):
           results = YoutubeSearch(query, max_results=5).to_dict()
         except:
           await lel.edit("Give me something to play")
-        await message.reply_photo(
-        photo="final.png",
         # Looks like hell. Aren't it?? FUCK OFF
         try:
-            toxxt = "https://telegra.ph/file/3a434d502a8adac2c8ef9.png"
+            toxxt = "****"
             j = 0
             useer=user_name
             emojilist = ["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣",]
