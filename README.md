@@ -1,11 +1,11 @@
-<h1 align="centre">RYTHM-V2</h1>
+<h1 align="centre">Kara-Music</h1>
 
 ### A bot that can play music on Telegram Group and Channel Voice Chats
 #### POWERED BY [PYTGCALLS](https://github.com/pytgcalls/pytgcalls)
-### Available on telegram as [@Rythm](https://t.me/caripacarvirtual01)
+### Available on telegram as [@KARA](https://t.me/karamusicbot)
 
 <p align="center">
-  <img src="https://telegra.ph/file/80af8dd490572b6042045.jpg">
+  <img src="https://telegra.ph/file/d86c7eb1c7a9c13a4d70f.jpg">
 </p>
 
 <h2> Features 🔥 </h2>
@@ -25,7 +25,7 @@
 
 ### 💜 Heroku
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/IrhamFadzillah/rythm-v2)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/ipindanger/Kara-Music)
 
 Get pyrogram (p)  `SESSION` from here:
 [![Run on Repl.it](https://repl.it/badge/github/SpEcHiDe/GenerateStringSession)](https://repl.it/@SpEcHiDe/GenerateStringSession)
@@ -33,7 +33,7 @@ Get pyrogram (p)  `SESSION` from here:
 ### ⚔ Self-hosting (For Devs) 
 ```sh
 # Install Git First (apt-instll git)
-$ git clone https://github.com/IrhamFadzillah/rythm-v2
+$ git clone https://github.com/ipindanger/Kara-Music
 $ cd rythm-v2
 # Upgrade sources
 # Install All Requirements 
