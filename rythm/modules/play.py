@@ -546,7 +546,7 @@ async def play(_, message: Message):
         )
         file_name = get_file_name(audio)
         title = file_name
-        thumb_name = "https://telegra.ph/file/3a434d502a8adac2c8ef9.png"
+        thumb_name = "https://telegra.ph/file/8331fda28585ed739e7db.png"
         thumbnail = thumb_name
         duration = round(audio.duration / 60)
         views = "Locally added"
@@ -595,7 +595,7 @@ async def play(_, message: Message):
                 [InlineKeyboardButton(text="Close", callback_data="cls")],
             ]
         )
-        thumb_name = "https://telegra.ph/file/09bcfa88180019caca22c.jpg"
+        thumb_name = "https://telegra.ph/file/8331fda28585ed739e7db.png"
         thumbnail = thumb_name
         requested_by = message.from_user.first_name
         await generate_cover(requested_by, title, views, duration, thumbnail)
@@ -734,7 +734,7 @@ async def deezer(client: Client, message_: Message):
     try:
         user = await USER.get_me()
     except:
-        user.first_name = "Rytym"
+        user.first_name = "KARA"
     usar = user
     wew = usar.id
     try:
@@ -797,7 +797,7 @@ async def deezer(client: Client, message_: Message):
         url = songs.result[0].url
         artist = songs.result[0].artist
         duration = songs.result[0].duration
-        thumbnail = "https://telegra.ph/file/80af8dd490572b6042045.jpg"
+        thumbnail = "https://telegra.ph/file/8331fda28585ed739e7db.png"
 
     except:
         await res.edit("Found Literally Nothing, You Should Work On Your English!")
